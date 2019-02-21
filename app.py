@@ -51,7 +51,7 @@ async def on_message(message):
         invasion_durration = invasion_timer.invasion_time_left(last_invasion,invasion_running)
         invasion_until_next = invasion_timer.till_next_invasion(next_invasion)
 
-        msg = message.discord.Embed(title="Invasion Zamanları", description="Invasion zamanları aşağıdaki gibidir.")
+        msg = discord.Embed(title="Invasion Zamanları", description="Invasion zamanları aşağıdaki gibidir.")
         msg.add_field(name="Bir sonraki invasiona kalan süre", value=invasion_until_next, inline=True)
         msg.add_field(name="Bir sonraki invasion başlangıc zamanı", value=next_invasion, inline=False)
 
