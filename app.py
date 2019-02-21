@@ -45,9 +45,18 @@ async def on_message(message):
 
     if message.content.startswith('!armory inv'):
         invasion_timer = InvasionTimer()
-        msg = invasion_timer.next_invasion_date()
-        await client.send_message((message.channel),msg)
-        
+        next_invasion = invasion_timer.next_invasion_date()
+        last_invasion = invasion_timer.last_invasion_date(next_invastion)
+        invasion_running = invasion_timer.invasion_running(last_invasion)
+        invasion_durration = invasion_timer.invasion_time_left(last_invasion,invasion_running)
+        invasion_until_next = invasion_timer.till_next_invasion(next_invastion)
+
+        msg = message.discord.Embed(title="Invasion Zamanları", description="Invasion zamanları aşağıdaki gibidir.")
+        msg.add_field(name="Bir sonraki invasiona kalan süre", value=invasion_until_next, inline=True)
+        msg.add_field(name=Bir sonraki invasion başlangıc zamanı, value=next_invasion, inline=False)
+
+        await client.send_message((message.channel),embed=msg)
+
     if message.content.startswith('!armory pve'):
         split = split_query(message.content, 'pve')
 
