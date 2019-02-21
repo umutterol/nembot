@@ -7,6 +7,7 @@ import time
 from wow import *
 from util import *
 from settings import *
+from invasions import InvasionTimer
 
 client = discord.Client()
 
@@ -42,7 +43,11 @@ async def on_message(message):
             msg = '`The current price of a WoW Token on %s realms is %s gold.` :moneybag:' % (region, info)
             await client.send_message(message.channel, msg)
 
-
+    if message.content.startswith('!armory inv'):
+        invasion_timer = InvasionTimer()
+        msg = invasion_timer.next_invasion_date()
+        await client.send_message((message.channel),msg)
+        
     if message.content.startswith('!armory pve'):
         split = split_query(message.content, 'pve')
 
