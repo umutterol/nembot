@@ -46,10 +46,10 @@ async def on_message(message):
     if message.content.startswith('!armory inv'):
         invasion_timer = InvasionTimer()
         next_invasion = invasion_timer.next_invasion_date()
-        last_invasion = invasion_timer.last_invasion_date(next_invastion)
+        last_invasion = invasion_timer.last_invasion_date(next_invasion)
         invasion_running = invasion_timer.invasion_running(last_invasion)
         invasion_durration = invasion_timer.invasion_time_left(last_invasion,invasion_running)
-        invasion_until_next = invasion_timer.till_next_invasion(next_invastion)
+        invasion_until_next = invasion_timer.till_next_invasion(next_invasion)
 
         msg = message.discord.Embed(title="Invasion Zamanları", description="Invasion zamanları aşağıdaki gibidir.")
         msg.add_field(name="Bir sonraki invasiona kalan süre", value=invasion_until_next, inline=True)
