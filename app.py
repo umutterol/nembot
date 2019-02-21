@@ -53,7 +53,7 @@ async def on_message(message):
 
         msg = message.discord.Embed(title="Invasion Zamanları", description="Invasion zamanları aşağıdaki gibidir.")
         msg.add_field(name="Bir sonraki invasiona kalan süre", value=invasion_until_next, inline=True)
-        msg.add_field(name=Bir sonraki invasion başlangıc zamanı, value=next_invasion, inline=False)
+        msg.add_field(name="Bir sonraki invasion başlangıc zamanı", value=next_invasion, inline=False)
 
         await client.send_message((message.channel),embed=msg)
 
