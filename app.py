@@ -66,12 +66,12 @@ async def on_message(message):
 
 
         if(invasion_running):
-            msg = discord.Embed(title= "Invasion Şuan Aktif!", description="Koş koş lootunu al marklarını al. FOR THE ALLIANCE?!?!", color="0xe62020")
+            msg = discord.Embed(title= "Invasion Şuan Aktif!", description="Koş koş lootunu al marklarını al. FOR THE ALLIANCE?!?!", color=0xe62020)
             msg.set_thumbnail(url="https://findicons.com/files/icons/1181/flurry_extras_2/128/alliance.png")
             msg.add_field(name="Invasionun bitmesine kalan süre", value=invasion_durr_msg, inline=False)
             msg.add_field(name="Bir sonraki invasion zamanı", value=next_invasion_splitted, inline=False)
         else:
-            msg = discord.Embed(title="Invasion Şuanda Aktif Değil", description="Bir sonraki Invasion zamanı aşağıdaki gibidir.", color="0xe62020")
+            msg = discord.Embed(title="Invasion Şuanda Aktif Değil", description="Bir sonraki Invasion zamanı aşağıdaki gibidir.", color=0xe62020)
             msg.set_thumbnail(url="https://findicons.com/files/icons/1181/flurry_extras_2/128/alliance.png")
             msg.add_field(name="Bir sonraki invasiona kalan süre", value=till_next_msg, inline=True)
             msg.add_field(name="Bir sonraki invasion başlangıc zamanı", value=next_invasion_splitted, inline=False)
