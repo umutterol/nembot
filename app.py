@@ -51,9 +51,13 @@ async def on_message(message):
         invasion_durration = invasion_timer.invasion_time_left(last_invasion,invasion_running)
         invasion_until_next = invasion_timer.till_next_invasion(next_invasion)
 
-        msg = discord.Embed(title="Invasion Zamanları", description="Invasion zamanları aşağıdaki gibidir.")
-        msg.add_field(name="Bir sonraki invasiona kalan süre", value=invasion_until_next, inline=True)
-        msg.add_field(name="Bir sonraki invasion başlangıc zamanı", value=next_invasion, inline=False)
+        if(invasion_running):
+            msg = discord.Embed(Title= ":crossed_swords: Invasion Şuan Aktif! :crossed_swords: ", description="Koş koş lootunu al marklarını al. FOR THE ALLIANCE?!?!")
+            msg.add_field(name="Invasionun bitmesine kalan süre", description=invasion_durration)
+        else:
+            msg = discord.Embed(title="Invasion Zamanları", description="Invasion zamanları aşağıdaki gibidir.")
+            msg.add_field(name="Bir sonraki invasiona kalan süre", value=invasion_until_next, inline=True)
+            msg.add_field(name="Bir sonraki invasion başlangıc zamanı", value=next_invasion, inline=False)
 
         await client.send_message((message.channel),embed=msg)
 
@@ -134,89 +138,6 @@ async def on_message(message):
                 inline=True)
 
             await client.send_message(message.channel, embed=msg)
-
-
-    # Same as before, except this time it's building data for PVP.
-    if message.content.startswith('!armory pvp'):
-        split = split_query(message.content, 'pvp')
-        region = split[3]
-        info = await character_info(split[0], split[1], split[2], split[3])
-
-        if info == 'not_found':
-            msg = NOT_FOUND_ERROR.format(message)
-            await client.send_message(message.channel, msg)
-
-        elif info == 'connection_error':
-            msg = CONNECTION_ERROR.format(message)
-            await client.send_message(message.channel, msg)
-
-        elif info == 'credential_error':
-            msg = CREDENTIAL_ERROR.format(message)
-            await client.send_message(message.channel, msg)
-
-        elif info == 'unknown_error':
-            msg = UNKNOWN_ERROR.format(message)
-            await client.send_message(message.channel, msg)
-
-        else:
-            msg = discord.Embed(
-                title='%s' % (info['name']),
-                colour=discord.Colour(info['class_colour']),
-                url='%s' % (info['armory']),
-                description='%s %s %s %s (BFA)' % (
-                    info['level'], info['faction'], info['spec'], info['class_type']))
-            msg.set_thumbnail(
-                url='https://render-%s.worldofwarcraft.com/character/%s?_%s' % (
-                    region, info['thumb'], epoch_time))
-            msg.set_footer(
-                text='!armory help | Feedback: https://github.com/JamesIves/discord-wow-armory-bot/issues',
-                icon_url='https://github.com/JamesIves/discord-wow-armory-bot/blob/master/assets/icon.png?raw=true')
-            msg.add_field(
-                name='Character',
-                value='**`Name`:** `%s`\n**`Realm`:** `%s (%s)`\n**`Battlegroup`:** `%s`\n**`Item Level`:** `%s`' % (
-                    info['name'], info['realm'], region.upper(), info['battlegroup'], info['ilvl']),
-                inline=True)
-            msg.add_field(
-                name='Arena Achievements',
-                value='**`Challenger`:** `%s`\n**`Rival`:** `%s`\n**`Duelist`:** `%s`\n**`Gladiator`:** `%s`' % (
-                    info['arena_challenger'], info['arena_rival'],
-                    info['arena_duelist'], info['arena_gladiator']),
-                inline=True)
-            msg.add_field(
-                name='RBG Achievements',
-                value='**`%s`:** `%s`\n**`%s`:** `%s`\n**`%s`:** `%s`' % (
-                    info['rbg_2400_name'], info['rbg_2400'],
-                    info['rbg_2000_name'], info['rbg_2000'],
-                    info['rbg_1500_name'], info['rbg_1500']),
-                inline=True)
-            msg.add_field(
-                name='Rated 2v2',
-                value='**`Rating`:** `%s`' % (
-                    info['2v2']),
-                inline=True)
-            msg.add_field(
-                name='Rated 3v3',
-                value='**`Rating`:** `%s`' % (
-                    info['3v3']),
-                inline=True)
-            msg.add_field(
-                name='Rated Battlegrounds',
-                value='**`Rating`:** `%s`' % (
-                    info['rbg']),
-                inline=True)
-            msg.add_field(
-                name='Skirmish 2v2',
-                value='**`Rating`:** `%s`' % (
-                    info['2v2s']),
-                inline=True)
-            msg.add_field(
-                name='Lifetime Honorable Kills',
-                value='`%s`' % (
-                    info['kills']),
-                inline=True)
-
-            await client.send_message(message.channel, embed=msg)
-
 
     # Display a list of available commands and a set of credits.
     if message.content.startswith('!armory help'):
