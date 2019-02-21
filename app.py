@@ -51,13 +51,30 @@ async def on_message(message):
         invasion_durration = invasion_timer.invasion_time_left(last_invasion,invasion_running)
         invasion_until_next = invasion_timer.till_next_invasion(next_invasion)
 
+        next_invasion_sarray = str(next_invastion).split("+")
+        next_invasion_splitted = next_invasion_sarray[0]
+
+        invasion_durr_sarray = str(invasion_durration).split(".")
+        invasion_durr_sarray = invasion_durr_sarray[0]
+        invasion_durr_sarray_hms = invasion_durr_sarray.split(":")
+        invasion_durr_msg = invasion_durr_sarray_hms[0] + " saat " + invasion_durr_sarray_hms[1] + " dakika kaldı."
+
+        till_next_sarray = str(invasion_until_next).split(".")
+        till_next_sarray = till_next_sarray[0]
+        till_next_sarray_hms = till_next_sarray.split(":")
+        till_next_msg = till_next_sarray_hms[0] + " saat " + till_next_sarray_hms[1] + " dakika kaldı."
+
+
         if(invasion_running):
-            msg = discord.Embed(title= "Invasion Şuan Aktif!", description="Koş koş lootunu al marklarını al. FOR THE ALLIANCE?!?!")
-            msg.add_field(name="Invasionun bitmesine kalan süre", value=invasion_durration, inline=False)
+            msg = discord.Embed(title= "Invasion Şuan Aktif!", description="Koş koş lootunu al marklarını al. FOR THE ALLIANCE?!?!", color="0xe62020")
+            msg.set_thumbnail(url="https://findicons.com/files/icons/1181/flurry_extras_2/128/alliance.png")
+            msg.add_field(name="Invasionun bitmesine kalan süre", value=invasion_durr_msg, inline=False)
+            msg.add_field(name="Bir sonraki invasion zamanı", value=next_invasion_splitted, inline=False)
         else:
-            msg = discord.Embed(title="Invasion Zamanları", description="Invasion zamanları aşağıdaki gibidir.")
-            msg.add_field(name="Bir sonraki invasiona kalan süre", value=invasion_until_next, inline=True)
-            msg.add_field(name="Bir sonraki invasion başlangıc zamanı", value=next_invasion, inline=False)
+            msg = discord.Embed(title="Invasion Şuanda Aktif Değil", description="Bir sonraki Invasion zamanı aşağıdaki gibidir.", color="0xe62020")
+            msg.set_thumbnail(url="https://findicons.com/files/icons/1181/flurry_extras_2/128/alliance.png")
+            msg.add_field(name="Bir sonraki invasiona kalan süre", value=till_next_msg, inline=True)
+            msg.add_field(name="Bir sonraki invasion başlangıc zamanı", value=next_invasion_splitted, inline=False)
 
         await client.send_message((message.channel),embed=msg)
 
