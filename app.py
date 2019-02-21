@@ -53,7 +53,7 @@ async def on_message(message):
 
         if(invasion_running):
             msg = discord.Embed(Title= ":crossed_swords: Invasion Şuan Aktif! :crossed_swords: ", description="Koş koş lootunu al marklarını al. FOR THE ALLIANCE?!?!")
-            msg.add_field(name="Invasionun bitmesine kalan süre", description=invasion_durration)
+            msg.add_field(name="Invasionun bitmesine kalan süre", value=invasion_durration, inline=False)
         else:
             msg = discord.Embed(title="Invasion Zamanları", description="Invasion zamanları aşağıdaki gibidir.")
             msg.add_field(name="Bir sonraki invasiona kalan süre", value=invasion_until_next, inline=True)
