@@ -51,7 +51,7 @@ async def on_message(message):
         invasion_durration = invasion_timer.invasion_time_left(last_invasion,invasion_running)
         invasion_until_next = invasion_timer.till_next_invasion(next_invasion)
 
-        next_invasion_sarray = str(next_invastion).split("+")
+        next_invasion_sarray = str(next_invasion).split("+")
         next_invasion_splitted = next_invasion_sarray[0]
 
         invasion_durr_sarray = str(invasion_durration).split(".")
