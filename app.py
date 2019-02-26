@@ -94,7 +94,8 @@ async def on_message(message):
         
         msg.add_field(
             name="\u200b",
-            value = tabulate.tabulate(dps,headers= "keys",tablefmt="simple"),  
+            value="\u200b",
+            description = tabulate.tabulate(dps,headers= "keys",tablefmt="simple"),  
             inline=False)
         await client.send_message((message.channel),embed=msg)
 
