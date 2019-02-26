@@ -84,13 +84,18 @@ async def on_message(message):
     if message.content.startswith('!exen rank dps'):
         sq = SpiderQueen()
         rankings = sq.Queen()
+        dps=[]
+        for char in rankings["DPS"]:
+            if(int(char["AllStar"])>=200):
+                dps.append(char)
+
 
         msg = discord.Embed(title = "DPS RANKINGLERI")
-        for char in rankings["TDPS"]:
-            msg.add_field(
-                name="\u200b",
-                value = tabulate.tabulate(rankings["DPS"],headers= "keys",tablefmt="simple"),  
-                inline=False)
+        
+        msg.add_field(
+            name="\u200b",
+            value = tabulate.tabulate(dps,headers= "keys",tablefmt="simple"),  
+            inline=False)
         await client.send_message((message.channel),embed=msg)
 
     if message.content.startswith('!armory pve'):
