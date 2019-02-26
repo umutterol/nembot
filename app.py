@@ -87,8 +87,8 @@ async def on_message(message):
         msg = discord.Embed(title = "DPS RANKINGLERI")
         for char in rankings["DPS"]:
             msg.add_field(
-                name=char["name"],
-                value = char["CoL"] + "\t" + char["JFM"],  
+                name="\u200b",
+                value = char["name"]+"\t"+char["CoL"] + "\t" + char["JFM"],  
                 inline=False)
         await client.send_message((message.channel),embed=msg)
 
