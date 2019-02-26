@@ -89,14 +89,7 @@ async def on_message(message):
             if(int(char["AllStar"])>=200):
                 dps.append(char)
 
-
-        msg = discord.Embed(title = "DPS RANKINGLERI")
-        
-        msg.add_field(
-            name="\u200b",
-            value="\u200b",
-            description = tabulate.tabulate(dps,headers= "keys",tablefmt="simple"),  
-            inline=False)
+        msg = discord.Embed(title = "DPS RANKINGLERI", description= tabulate.tabulate(dps,headers= "keys",tablefmt="simple"))
         await client.send_message((message.channel),embed=msg)
 
     if message.content.startswith('!armory pve'):
