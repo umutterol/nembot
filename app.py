@@ -86,7 +86,7 @@ async def on_message(message):
         rankings = sq.Queen()
 
         msg = discord.Embed(title = "DPS RANKINGLERI")
-        for char in rankings["DPS"]:
+        for char in rankings["TDPS"]:
             msg.add_field(
                 name="\u200b",
                 value = tabulate.tabulate(rankings["DPS"],headers= "keys",tablefmt="simple"),  
