@@ -3,3 +3,4 @@ aiohttp==3.5.4
 pytz==2018.9
 cffi==1.6.0
 Scrapy>=1.0.5
+scrapydo==0.2.2

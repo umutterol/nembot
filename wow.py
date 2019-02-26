@@ -3,6 +3,7 @@
 import aiohttp
 from settings import WOW_CLIENT_ID, WOW_CLIENT_SECRET, LOCALE
 from constants import *
+from invasions import InvasionTimer
 
 async def get_data(region, access_token, **kwargs):
     """Helper function that grabs data from the World of Warcraft API."""

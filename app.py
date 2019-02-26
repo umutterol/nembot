@@ -8,6 +8,7 @@ from wow import *
 from util import *
 from settings import *
 from invasions import InvasionTimer
+from spiderQueen import SpiderQueen
 
 client = discord.Client()
 
@@ -77,6 +78,25 @@ async def on_message(message):
             msg.add_field(name="Bir sonraki invasiona kalan süre", value=till_next_msg, inline=True)
             msg.add_field(name="Bir sonraki invasion başlangıc zamanı", value=next_invasion_splitted, inline=False)
 
+        await client.send_message((message.channel),embed=msg)
+
+    if message.content.startswith('!exen rank dps'):
+        sq = SpiderQueen()
+        rankings = sq.Queen()
+
+        msg = discord.Embed(title = "DPS RANKINGLERI")
+        for char in rankings["DPS"]:
+            msg.add_field(name=char["name"],inline=True)
+            msg.add_field(name=char["CoL"],inline=True)
+            msg.add_field(name=char["JFM"],inline=True)
+            msg.add_field(name=char["Grong"],inline=True)
+            msg.add_field(name=char["Opul"],inline=True)
+            msg.add_field(name=char["CoC"],inline=True)
+            msg.add_field(name=char["Rasta"],inline=True)
+            msg.add_field(name=char["Mecha"],inline=True)
+            msg.add_field(name=char["Block"],inline=True)
+            msg.add_field(name=char["Jaina"],inline=True)
+            msg.add_field(name=char["AllStar"],inline=False)
         await client.send_message((message.channel),embed=msg)
 
     if message.content.startswith('!armory pve'):
