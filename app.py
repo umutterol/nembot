@@ -90,7 +90,7 @@ async def on_message(message):
                 dps.append(char)
 
         #msg = discord.Embed(title = "DPS RANKINGLERI", description= tabulate.tabulate(dps,headers= "keys",tablefmt="simple"))
-        await client.send_message((message.channel),message="\n```\n" + tabulate.tabulate(dps, headers="keys", tablefmt="simple") + "\n```")
+        await client.send_message((message.channel),"\n```\n" + tabulate.tabulate(dps, headers="keys", tablefmt="simple") + "\n```")
 
     if message.content.startswith('!armory pve'):
         split = split_query(message.content, 'pve')
