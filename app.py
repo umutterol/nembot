@@ -86,17 +86,10 @@ async def on_message(message):
 
         msg = discord.Embed(title = "DPS RANKINGLERI")
         for char in rankings["DPS"]:
-            msg.add_field(name=char["name"],inline=True)
-            msg.add_field(name=char["CoL"],inline=True)
-            msg.add_field(name=char["JFM"],inline=True)
-            msg.add_field(name=char["Grong"],inline=True)
-            msg.add_field(name=char["Opul"],inline=True)
-            msg.add_field(name=char["CoC"],inline=True)
-            msg.add_field(name=char["Rasta"],inline=True)
-            msg.add_field(name=char["Mecha"],inline=True)
-            msg.add_field(name=char["Block"],inline=True)
-            msg.add_field(name=char["Jaina"],inline=True)
-            msg.add_field(name=char["AllStar"],inline=False)
+            msg.add_field(
+                name=char["name"],
+                value = char["CoL"] + "\t" + char["JFM"],  
+                inline=False)
         await client.send_message((message.channel),embed=msg)
 
     if message.content.startswith('!armory pve'):
