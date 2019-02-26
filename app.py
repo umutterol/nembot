@@ -88,7 +88,7 @@ async def on_message(message):
         for char in rankings["DPS"]:
             msg.add_field(
                 name="\u200b",
-                value = char["name"]+"\t"+char["CoL"] + "\t" + char["JFM"],  
+                value = tabulate.tabulate(rankings["DPS"],headers= "keys",tablefmt="simple"),  
                 inline=False)
         await client.send_message((message.channel),embed=msg)
 
