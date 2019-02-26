@@ -4,6 +4,7 @@ import os
 import discord
 import re
 import time
+import tabulate
 from wow import *
 from util import *
 from settings import *
