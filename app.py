@@ -83,14 +83,11 @@ async def on_message(message):
 
     if message.content.startswith('!exen rank dps'):
         sq = SpiderQueen()
-        rankings = sq.Queen()
-        dps=[]
-        for char in rankings["DPS"]:
-            if(int(char["AllStar"])>=200):
-                dps.append(char)
-
+        dps = sq.DPSSpiderCrawl()
+       
         #msg = discord.Embed(title = "DPS RANKINGLERI", description= tabulate.tabulate(dps,headers= "keys",tablefmt="simple"))
-        await client.send_message((message.channel),"\n```\n" + tabulate.tabulate(dps, headers="keys", tablefmt="simple") + "\n```")
+        for chunk in dps:
+            await client.send_message((message.channel),"\n```\n" + tabulate.tabulate(chunk, headers="keys", tablefmt="simple") + "\n```")
 
     if message.content.startswith('!armory pve'):
         split = split_query(message.content, 'pve')

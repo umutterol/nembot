@@ -6,6 +6,9 @@ from scrapy.utils.log import configure_logging
 import scrapydo
 
 rankings = {"DPS":[],"Heal":[],"TDPS":[]}
+DPS = []
+Heal = []
+Tank = []
 class DPSSpider(scrapy.Spider):
     name = 'DPSSpider'
 
@@ -29,8 +32,8 @@ class DPSSpider(scrapy.Spider):
                 "Jaina": char.xpath('.//td[11]/text()').extract_first().strip(),
                 "AllStar": char.xpath('.//td[12]/text()').extract_first().strip()
             }
-            global rankings
-            rankings["DPS"].append(char)
+            global DPS
+            DPS.append(char)
 
 class TankSpider(scrapy.Spider):
     name = 'tankSpider'
@@ -53,8 +56,8 @@ class TankSpider(scrapy.Spider):
                 'Jaina': char.xpath('.//td[11]/text()').extract_first().strip(),
                 'AllStar': char.xpath('.//td[12]/text()').extract_first().strip()
             }
-            global rankings
-            rankings['TDPS'].append(char)
+            global Tank
+            Tank.append(char)
 
 class HealSpider(scrapy.Spider):
     name = 'healSpider'
@@ -77,36 +80,40 @@ class HealSpider(scrapy.Spider):
                 'Jaina': char.xpath('.//td[11]/text()').extract_first().strip(),
                 'AllStar': char.xpath('.//td[12]/text()').extract_first().strip()
             }
-            global rankings
-            rankings["Heal"].append(char)
+            global Heal
+            Heal.append(char)
 class SpiderQueen():
     scrapydo.setup()
     global rankings
     rankings = {"DPS":[],"Heal":[],"TDPS":[]}
+    def divide_chunks(l):
+            l.sort(key=lambda x: float(x['average']), reverse=True)
+            n = 14
+            divlist = []
+            for i in range(0, len(l), n):
+                    divlist.append(l[i:i + n ])
+            return divlist
+
     def DPSSpiderCrawl(self):
-        crawler = CrawlerProcess({
-            'USER_AGENT': 'Mozilla/5.0',
-            'FEED_FORMAT': 'json',
-            'FEED_URI': 'dps.json',
-            'FEED_EXPORT_ENCODING' : 'utf-8',
-        })
-        crawler.crawl(DPSSpider)
-        crawler.start()
-        return dpsList
+        global DPS
+        DPS = []
+        scrapydo.run_spider(DPSSpider(), settings = {'USER_AGENT': 'Mozilla/5.0',})
+        DPSChunk = SpiderQueen.divide_chunks(DPS)
+        return DPSChunk
 
     def TankSpiderCrawl(self):
-        crawler = CrawlerProcess({
-            'USER_AGENT': 'Mozilla/5.0',
-        })
-        crawler.crawl(TankSpider)
-        crawler.start()
+        global Tank
+        Tank = []
+        scrapydo.run_spider(TankSpider(), settings = {'USER_AGENT': 'Mozilla/5.0',})
+        TankChunk = SpiderQueen.divide_chunks(Tank)
+        return TankChunk
     
     def HealSpiderCrawl(self):
-        crawler = CrawlerProcess({
-            'USER_AGENT': 'Mozilla/5.0',
-        })
-        crawler.crawl(HealSpider)
-        crawler.start()
+        global Heal
+        Heal = []
+        scrapydo.run_spider(HealSpider(), settings = {'USER_AGENT': 'Mozilla/5.0',})
+        HealChunk = SpiderQueen.divide_chunks(Heal)
+        return HealChunk
     def Queen(self):
         
         global rankings
@@ -116,4 +123,6 @@ class SpiderQueen():
         scrapydo.run_spider(HealSpider(), settings = {'USER_AGENT': 'Mozilla/5.0',})
         return rankings
     
+    
+
     
