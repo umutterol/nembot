@@ -84,7 +84,7 @@ async def on_message(message):
     if message.content.startswith('!exen rank dps'):
         sq = SpiderQueen()
         dps = sq.DPSSpiderCrawl()
-       
+        await client.send_message((message.channel),':crossed_swords:` DPS Parse Listesi ` :crossed_swords:' )
         #msg = discord.Embed(title = "DPS RANKINGLERI", description= tabulate.tabulate(dps,headers= "keys",tablefmt="simple"))
         for chunk in dps:
             await client.send_message((message.channel),"\n```\n" + tabulate.tabulate(chunk, headers="keys", tablefmt="simple") + "\n```")
@@ -92,7 +92,7 @@ async def on_message(message):
     if message.content.startswith('!exen rank tank'):
         sq = SpiderQueen()
         tank = sq.TankSpiderCrawl()
-       
+        await client.send_message((message.channel),':shield: ` Tank Parse Listesi ` :shield: ' )
         #msg = discord.Embed(title = "DPS RANKINGLERI", description= tabulate.tabulate(dps,headers= "keys",tablefmt="simple"))
         for chunk in tank:
             await client.send_message((message.channel),"\n```\n" + tabulate.tabulate(chunk, headers="keys", tablefmt="simple") + "\n```")
@@ -100,7 +100,7 @@ async def on_message(message):
     if message.content.startswith('!exen rank heal'):
         sq = SpiderQueen()
         heal = sq.HealSpiderCrawl()
-       
+        await client.send_message((message.channel),':syringe: ` Heal Parse Listesi ` :syringe: ' )
         #msg = discord.Embed(title = "DPS RANKINGLERI", description= tabulate.tabulate(dps,headers= "keys",tablefmt="simple"))
         for chunk in heal:
             await client.send_message((message.channel),"\n```\n" + tabulate.tabulate(chunk, headers="keys", tablefmt="simple") + "\n```")
