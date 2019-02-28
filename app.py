@@ -88,6 +88,23 @@ async def on_message(message):
         #msg = discord.Embed(title = "DPS RANKINGLERI", description= tabulate.tabulate(dps,headers= "keys",tablefmt="simple"))
         for chunk in dps:
             await client.send_message((message.channel),"\n```\n" + tabulate.tabulate(chunk, headers="keys", tablefmt="simple") + "\n```")
+    
+    if message.content.startswith('!exen rank tank'):
+        sq = SpiderQueen()
+        tank = sq.TankSpiderCrawl()
+       
+        #msg = discord.Embed(title = "DPS RANKINGLERI", description= tabulate.tabulate(dps,headers= "keys",tablefmt="simple"))
+        for chunk in tank:
+            await client.send_message((message.channel),"\n```\n" + tabulate.tabulate(chunk, headers="keys", tablefmt="simple") + "\n```")
+    
+    if message.content.startswith('!exen rank heal'):
+        sq = SpiderQueen()
+        heal = sq.HealSpiderCrawl()
+       
+        #msg = discord.Embed(title = "DPS RANKINGLERI", description= tabulate.tabulate(dps,headers= "keys",tablefmt="simple"))
+        for chunk in heal:
+            await client.send_message((message.channel),"\n```\n" + tabulate.tabulate(chunk, headers="keys", tablefmt="simple") + "\n```")
+
 
     if message.content.startswith('!armory pve'):
         split = split_query(message.content, 'pve')
