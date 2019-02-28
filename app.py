@@ -23,7 +23,7 @@ async def on_message(message):
     if message.author == client.user:
         return
 
-    if message.content.startswith('!armory token'):
+    if message.content.startswith('!exen token'):
         split = split_query(message.content, 'wow_token')
         region = split[0]
         info = await wow_token_price(region)
@@ -42,10 +42,10 @@ async def on_message(message):
             await client.send_message(message.channel, msg)
 
         else:
-            msg = '`The current price of a WoW Token on %s realms is %s gold.` :moneybag:' % (region, info)
+            msg = '`WoW Tokenın %s realmlerindeki fiyatı şuan %s gold.` :moneybag:' % (region, info)
             await client.send_message(message.channel, msg)
 
-    if message.content.startswith('!armory inv'):
+    if message.content.startswith('!exen inv'):
         invasion_timer = InvasionTimer()
         next_invasion = invasion_timer.next_invasion_date()
         last_invasion = invasion_timer.last_invasion_date(next_invasion)
@@ -106,7 +106,7 @@ async def on_message(message):
             await client.send_message((message.channel),"\n```\n" + tabulate.tabulate(chunk, headers="keys", tablefmt="simple") + "\n```")
 
 
-    if message.content.startswith('!armory pve'):
+    if message.content.startswith('!exen pve'):
         split = split_query(message.content, 'pve')
 
         # Assigns the 3rd index in the split to the region
@@ -153,7 +153,7 @@ async def on_message(message):
                 url='https://render-%s.worldofwarcraft.com/character/%s?_%s' % (
                     region, info['thumb'], epoch_time))
             msg.set_footer(
-                text='!armory help | Feedback: https://github.com/JamesIves/discord-wow-armory-bot/issues',
+                text='!exen yardım | Feedback: https://github.com/umutterol/nembot/issues',
                 icon_url='https://raw.githubusercontent.com/JamesIves/discord-wow-armory-bot/master/assets/icon.png')
             msg.add_field(
                 name='Character',
@@ -185,28 +185,25 @@ async def on_message(message):
             await client.send_message(message.channel, embed=msg)
 
     # Display a list of available commands and a set of credits.
-    if message.content.startswith('!armory help'):
-        msg = """The following commands can be entered:
+    if message.content.startswith('!exen yardım'):
+        msg = """Şu komutlar kullanılabilir:
             ```
-            # Displays a players PVE progression, dungeon kills, keystone achievements, etc.
-            !armory pve <name> <realm>
-            !armory pve <armory-link>
+            # PVE Progressi, dungeon killeri, mythic+ achivleri için.
+            !exen pve <name> <realm>
+            !exen pve <armory-link>
 
-            # Displays a players PVP progression, arena ratings, honorable kills, etc.
-            !armory pvp <name> <realm>
-            !armory pvp <armory-link>
+            # WoW Token Fiyatları için
+            !exen token
 
-            # Displays the WoW token price
-            !armory token
+            #WARCRAFTLOGS Ranking tabloları için.
+            !exen rank dps
+            !exen rank tank
+            !exen rank heal
 
-            # You can also provide an optional region to each query to display players from other WoW regions outside of the bot default, for example EU, US, etc.
-            !armory pve <name> <realm> <region>
-            !armory pvp <armory-link> <region>
-            !armory token <region>
+            #Battle for Azeroth Invasion zamanlayıcıları.
+            !exen inv
 
             ```
-            • Bot created by James Ives (https://jamesiv.es)
-            • Feedback, Issues and Source: https://github.com/JamesIves/discord-wow-armory-bot/issues
             """
 
         msg = '%s'.format(message) % re.sub(r'(^[ \t]+|[ \t]+(?=:))', '', msg, flags=re.M)
